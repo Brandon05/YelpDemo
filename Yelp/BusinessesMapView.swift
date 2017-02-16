@@ -26,6 +26,24 @@ extension BusinessesViewController: MKMapViewDelegate, CLLocationManagerDelegate
             mapView.addAnnotation(annotaion)
         }
         
-        mapView.reloadInputViews()
+        //mapView.reloadInputViews()
+    }
+    
+    //MARK: - Custom Annotation
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        let reuseIdentifier = "pin"
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
+        
+        if annotationView == nil {
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
+            annotationView?.canShowCallout = true
+        } else {
+            annotationView?.annotation = annotation
+        }
+        
+        //let customPointAnnotation = annotation as! CustomPointAnnotation
+        //annotationView?.image = UIImage(named: customPointAnnotation.pinCustomImageName)
+        
+        return annotationView
     }
 }
