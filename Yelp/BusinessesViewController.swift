@@ -10,7 +10,15 @@ import UIKit
 
 class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var businesses: [Business]!
+    let refreshControl = UIRefreshControl()
+    
+    var searchController: UISearchController!
+    
+    var businesses = [Business]()
+    
+    var isMoreDataLoading = false
+    
+    var currentTerm = "Food"
     
     @IBOutlet var tableView: UITableView!
     
@@ -19,23 +27,17 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = UITableViewAutomaticDimension // property need for dynamic cells
-        tableView.estimatedRowHeight = 120 // must be run with above^ 
+        tableView.estimatedRowHeight = 120 // must be run with above^
+        
+        refreshControl.addTarget(self, action: #selector(BusinessesViewController.refreshControlAction(refreshControl:)), for: UIControlEvents.valueChanged)
+        tableView.insertSubview(refreshControl, at: 0)
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         self.automaticallyAdjustsScrollViewInsets = false // prevent gap between tableview and nav bar
         
-        Business.searchWithTerm(term: "Thai", completion: { (businesses: [Business]?, error: Error?) -> Void in
-            
-            self.businesses = businesses
-            if let businesses = businesses {
-                for business in businesses {
-                    print(business.name!)
-                    print(business.address!)
-                }
-              self.tableView.reloadData()
-            }
-            }
-        )
+        networkRequest(withTerm: currentTerm, andOffset: 0)
+        
+        initiateSearchController()
         
         /* Example of Yelp search with more search options specified
          Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
@@ -55,6 +57,12 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         // Dispose of any resources that can be recreated.
     }
     
+    func refreshControlAction(refreshControl: UIRefreshControl) {
+        refreshControl.tintColor = UIColor.black
+        //api call
+        networkRequest(withTerm: currentTerm, andOffset: 0)
+    }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard businesses != nil else {return 0}
@@ -67,6 +75,21 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         cell.business = businesses[indexPath.row]
         
         return cell
+    }
+    
+    func networkRequest(withTerm term: String, andOffset offset: Int) {
+        Business.searchWithTerm(term: term, offset: offset, completion: { (businesses: [Business]?, error: Error?) -> Void in
+            
+            let filteredBusinesses = businesses.flatMap {return $0}
+//            for business in filteredBusinesses! {
+//                self.businesses.append(business)
+//            }
+            self.businesses += filteredBusinesses!
+            //self.businesses += businesses.flatMap {return $0}
+            self.isMoreDataLoading = false
+            self.tableView.reloadData()
+            self.refreshControl.endRefreshing()
+        })
     }
     /*
      // MARK: - Navigation
