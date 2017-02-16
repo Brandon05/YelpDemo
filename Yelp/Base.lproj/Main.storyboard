@@ -30,7 +30,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="156"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="52X-J5-c0Q" id="wWa-z6-DoN">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="156"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="155"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sD8-Tq-FCE">
@@ -121,17 +121,25 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Nh4-pD-shD">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </mapView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="AEE-pK-kWa" firstAttribute="top" secondItem="hR0-74-jRp" secondAttribute="bottom" id="AOR-zX-MsX"/>
+                            <constraint firstItem="VBY-gq-v8E" firstAttribute="top" secondItem="Nh4-pD-shD" secondAttribute="bottom" id="C71-RS-pdv"/>
+                            <constraint firstAttribute="trailing" secondItem="Nh4-pD-shD" secondAttribute="trailing" id="S9Z-KF-Mwb"/>
+                            <constraint firstItem="Nh4-pD-shD" firstAttribute="leading" secondItem="XhR-oz-92f" secondAttribute="leading" id="TZf-iP-N4Q"/>
                             <constraint firstItem="VBY-gq-v8E" firstAttribute="top" secondItem="AEE-pK-kWa" secondAttribute="bottom" id="YYB-uq-gQ7"/>
                             <constraint firstAttribute="trailing" secondItem="AEE-pK-kWa" secondAttribute="trailing" id="jgT-fJ-ZyT"/>
+                            <constraint firstItem="Nh4-pD-shD" firstAttribute="top" secondItem="XhR-oz-92f" secondAttribute="top" id="loq-67-7af"/>
                             <constraint firstItem="AEE-pK-kWa" firstAttribute="leading" secondItem="XhR-oz-92f" secondAttribute="leading" id="yyC-Aa-aih"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Yelp" id="WUm-3X-t3E"/>
                     <connections>
+                        <outlet property="mapView" destination="Nh4-pD-shD" id="2GU-rd-Dmi"/>
                         <outlet property="tableView" destination="AEE-pK-kWa" id="tRn-85-PpG"/>
                     </connections>
                 </viewController>

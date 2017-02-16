@@ -7,8 +7,14 @@
 //
 
 import UIKit
+import MapKit
 
 class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    @IBOutlet weak var mapView: MKMapView!
+    let locationManager = CLLocationManager()
+    //var pointAnnotation:CustomPointAnnotation!
+    var pinAnnotationView:MKPinAnnotationView!
     
     let refreshControl = UIRefreshControl()
     
@@ -38,6 +44,12 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         networkRequest(withTerm: currentTerm, andOffset: 0)
         
         initiateSearchController()
+        
+        mapView.delegate = self
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestAlwaysAuthorization()
+        locationManager.startUpdatingLocation()
         
         /* Example of Yelp search with more search options specified
          Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
@@ -89,6 +101,8 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
             self.isMoreDataLoading = false
             self.tableView.reloadData()
             self.refreshControl.endRefreshing()
+            self.mapView.reloadInputViews()
+            
         })
     }
     /*
