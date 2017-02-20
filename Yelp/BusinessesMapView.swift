@@ -24,16 +24,30 @@ extension BusinessesViewController: MKMapViewDelegate, CLLocationManagerDelegate
 //        print("USER: \(userLocation.coordinate.longitude), \(userLocation.coordinate.latitude)")
         let center = LocationService.sharedInstance.currentLocation?.coordinate //location
         let region = MKCoordinateRegionMake(center!, MKCoordinateSpan(latitudeDelta: 0.050, longitudeDelta: 0.050))
-        mapView.setRegion(region, animated: true)
+        //mapView.setRegion(region, animated: true)
         
+        var allAnnMapRect = MKMapRectNull
         let annotations = businesses.flatMap { business -> MKPointAnnotation in
             let annotation = CustomPointAnnotation()
             annotation.coordinate = business.coordinate!
             annotation.title = business.name
             annotation.imageName = business.imageURL
             annotation.business = business
+            
+            let thisAnnMapPoint = MKMapPointForCoordinate(annotation.coordinate)
+            let thisAnnMapRect = MKMapRectMake(thisAnnMapPoint.x, thisAnnMapPoint.y, 1, 1)
+            allAnnMapRect = MKMapRectUnion(allAnnMapRect, thisAnnMapRect)
+            
             return annotation
         }
+        
+        
+        
+        //Set inset (blank space around all annotations) as needed...
+        //These numbers are in screen CGPoints...
+        let edgeInset = UIEdgeInsetsMake(20, 20, 20, 20)
+        
+        self.mapView.setVisibleMapRect(allAnnMapRect, edgePadding: edgeInset, animated: true)
         
         mapView.addAnnotations(annotations)
         //locationManager.stopUpdatingLocation()

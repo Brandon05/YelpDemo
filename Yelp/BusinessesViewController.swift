@@ -120,6 +120,11 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
             self.isMoreDataLoading = false
             self.tableView.reloadData()
             self.refreshControl.endRefreshing()
+            if #available(iOS 9.0, *) {
+                self.locationManager.requestLocation()
+            } else {
+                // Fallback on earlier versions
+            }
             self.mapView.reloadInputViews()
             //self.locationManager.startUpdatingLocation()
         })

@@ -50,6 +50,7 @@ extension BusinessesViewController: UISearchBarDelegate, UISearchResultsUpdating
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard searchBar.text != nil else {return}
         self.businesses.removeAll()
+        mapView.removeAnnotations(mapView.annotations)
         print(businesses)
         self.currentTerm = searchBar.text!
         networkRequest(withTerm: currentTerm, andOffset: 0)

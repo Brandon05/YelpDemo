@@ -15,7 +15,7 @@ extension BusinessesViewController: UIScrollViewDelegate {
         if (!isMoreDataLoading) {
             // Calculate the position of one screen length before the bottom of the results
             let scrollViewContentHeight = tableView.contentSize.height
-            let scrollOffsetThreshold = scrollViewContentHeight - (tableView.bounds.size.height - 100)
+            let scrollOffsetThreshold = scrollViewContentHeight - (tableView.bounds.size.height + 100)
             
             // When the user has scrolled past the threshold, start requesting
             if(scrollView.contentOffset.y > scrollOffsetThreshold && tableView.isDragging) {
