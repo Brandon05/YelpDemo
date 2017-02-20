@@ -10,6 +10,8 @@
 		020BB05B1E55256800BD6629 /* ScrollViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020BB05A1E55256800BD6629 /* ScrollViewExtension.swift */; };
 		020BB0911E565FE800BD6629 /* LocationServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020BB0901E565FE700BD6629 /* LocationServiceProtocol.swift */; };
 		020BB0931E5A938A00BD6629 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020BB0921E5A938A00BD6629 /* DetailViewController.swift */; };
+		0232D5201E5AC67600BBD28E /* MaterialCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232D51F1E5AC67600BBD28E /* MaterialCard.swift */; };
+		0232D5221E5AD2A300BBD28E /* DetailMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0232D5211E5AD2A300BBD28E /* DetailMapView.swift */; };
 		023F29771E5417C0008B1521 /* YelpNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F29761E5417C0008B1521 /* YelpNavigationController.swift */; };
 		023F297A1E54183E008B1521 /* SearchExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F29791E54183E008B1521 /* SearchExtension.swift */; };
 		02996D901E56204B00E8EBE6 /* BusinessesMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02996D8F1E56204B00E8EBE6 /* BusinessesMapView.swift */; };
@@ -40,6 +42,8 @@
 		020BB05A1E55256800BD6629 /* ScrollViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollViewExtension.swift; sourceTree = "<group>"; };
 		020BB0901E565FE700BD6629 /* LocationServiceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationServiceProtocol.swift; sourceTree = "<group>"; };
 		020BB0921E5A938A00BD6629 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		0232D51F1E5AC67600BBD28E /* MaterialCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialCard.swift; sourceTree = "<group>"; };
+		0232D5211E5AD2A300BBD28E /* DetailMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailMapView.swift; sourceTree = "<group>"; };
 		023F29761E5417C0008B1521 /* YelpNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YelpNavigationController.swift; sourceTree = "<group>"; };
 		023F29791E54183E008B1521 /* SearchExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchExtension.swift; sourceTree = "<group>"; };
 		02996D8F1E56204B00E8EBE6 /* BusinessesMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessesMapView.swift; sourceTree = "<group>"; };
@@ -114,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				02996D8F1E56204B00E8EBE6 /* BusinessesMapView.swift */,
+				0232D5211E5AD2A300BBD28E /* DetailMapView.swift */,
 			);
 			name = MapViewExtensions;
 			sourceTree = "<group>";
@@ -122,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				02AA5FAF1E3C45DD00A5E771 /* BusinessCell.swift */,
+				0232D51F1E5AC67600BBD28E /* MaterialCard.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -445,8 +451,10 @@
 				02AA5FB01E3C45DD00A5E771 /* BusinessCell.swift in Sources */,
 				023F29771E5417C0008B1521 /* YelpNavigationController.swift in Sources */,
 				023F297A1E54183E008B1521 /* SearchExtension.swift in Sources */,
+				0232D5221E5AD2A300BBD28E /* DetailMapView.swift in Sources */,
 				02996D901E56204B00E8EBE6 /* BusinessesMapView.swift in Sources */,
 				020BB0911E565FE800BD6629 /* LocationServiceProtocol.swift in Sources */,
+				0232D5201E5AC67600BBD28E /* MaterialCard.swift in Sources */,
 				020BB05B1E55256800BD6629 /* ScrollViewExtension.swift in Sources */,
 				22AAAA9C1AEA1EC300A544AF /* BusinessesViewController.swift in Sources */,
 				22AAAA991AEA0A9700A544AF /* Business.swift in Sources */,

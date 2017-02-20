@@ -22,8 +22,10 @@ class BusinessCell: UITableViewCell {
     var business: Business! {
         didSet {
             nameLabel.text = business.name
-            thumbImageView.setImageWith(business.imageURL!)
-            ratingImageView.setImageWith(business.ratingImageURL!)
+            if let imageURL = business.imageURL, let ratingImageURL = business.ratingImageURL {
+                thumbImageView.setImageWith(business.imageURL!)
+                ratingImageView.setImageWith(business.ratingImageURL!)
+            }
             reviewsCountLabel.text = String(describing: business.reviewCount!) + " Reviews"
             categoriesLabel.text = business.categories
             distanceLabel.text = business.distance

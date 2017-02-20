@@ -35,7 +35,7 @@ extension BusinessesViewController: UISearchBarDelegate, UISearchResultsUpdating
         
         searchController.searchBar.tintColor = UIColor.red
         var textFieldInsideSearchBar = searchController.searchBar.value(forKey: "searchField") as? UITextField
-        searchController.searchBar.setSearchColor()
+        searchController.searchBar.setSearchColor(withText: "Search Businesses")
         searchController.searchBar.setSerchTextcolor(color: UIColor.black)
         
         textFieldInsideSearchBar?.textColor = UIColor.black
@@ -50,10 +50,16 @@ extension BusinessesViewController: UISearchBarDelegate, UISearchResultsUpdating
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard searchBar.text != nil else {return}
         self.businesses.removeAll()
+        mapView.removeAnnotations(mapView.annotations)
         print(businesses)
         self.currentTerm = searchBar.text!
         networkRequest(withTerm: currentTerm, andOffset: 0)
         self.tableView.reloadData()
+        
+        // Change search placeholder to current search
+        searchController.searchBar.setSearchColor(withText: searchBar.text!)
+        self.searchController.dismiss(animated: true, completion: nil)
+        //searchController.resignFirstResponder()
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -70,9 +76,13 @@ extension UISearchBar {
         //UISearchBar.appearance().setImage(#imageLiteral(resourceName: "searchIcon"), for: UISearchBarIcon.search, state: UIControlState.normal)
     }
     
-    func setSearchColor() {
+    func setSearchColor(withText text: String) {
         let placeholderAttributes: [String : AnyObject] = [NSForegroundColorAttributeName: UIColor.black, NSFontAttributeName: UIFont.systemFont(ofSize: UIFont.systemFontSize)]
-        let attributedPlaceholder: NSAttributedString = NSAttributedString(string: "Search Movies", attributes: placeholderAttributes)
+        var attributedPlaceholder: NSAttributedString = NSAttributedString(string: "Search Businesses", attributes: placeholderAttributes)
+        if text != nil {
+            attributedPlaceholder = NSAttributedString(string: text, attributes: placeholderAttributes)
+        }
+        
         let textFieldPlaceHolder = self.value(forKey: "searchField") as? UITextField
         textFieldPlaceHolder?.attributedPlaceholder = attributedPlaceholder
     }
