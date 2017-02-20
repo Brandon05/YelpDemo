@@ -12,6 +12,7 @@ import MapKit
 class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, LocationServiceDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
+    var isMapViewPresent = false
     let locationManager = CLLocationManager()
     //var pointAnnotation:CustomPointAnnotation!
     var pinAnnotationView:MKPinAnnotationView!
@@ -100,6 +101,11 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath) as! BusinessCell
+        self.performSegue(withIdentifier: "DetailSegue", sender: cell.business)
+    }
+    
     func networkRequest(withTerm term: String, andOffset offset: Int) {
         Business.searchWithTerm(term: term, offset: offset, completion: { (businesses: [Business]?, error: Error?) -> Void in
             
@@ -107,6 +113,8 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
 //            for business in filteredBusinesses! {
 //                self.businesses.append(business)
 //            }
+            print(businesses)
+            print(filteredBusinesses)
             self.businesses += filteredBusinesses!
             //self.businesses += businesses.flatMap {return $0}
             self.isMoreDataLoading = false
@@ -128,14 +136,31 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     func tracingLocation(_ currentLocation: CLLocation) {
         print("getting current location")
     }
-    /*
+    
+    @IBAction func onMap(_ sender: Any) {
+        switch isMapViewPresent {
+        case true:
+            removeMap()
+            isMapViewPresent = false
+        case false:
+            presentMap()
+            isMapViewPresent = true
+        }
+    }
+    
+    
      // MARK: - Navigation
      
      // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "DetailSegue" {
+            //let cell = sender as! BusinessCell
+            let detailVC = segue.destination as! DetailViewController
+            let business = sender as? Business
+            detailVC.business = business
+            detailVC.businessID = business?.id //)! + "?actionlinks=True"
+        }
      }
-     */
+ 
     
 }

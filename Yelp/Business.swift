@@ -18,6 +18,7 @@ class Business: NSObject {
     let ratingImageURL: URL?
     let reviewCount: NSNumber?
     let coordinate: CLLocationCoordinate2D?
+    let id: String?
     
     init?(dictionary: NSDictionary) {
         name = dictionary["name"] as? String
@@ -87,6 +88,8 @@ class Business: NSObject {
         }
         
         reviewCount = dictionary["review_count"] as? NSNumber
+        
+        id = dictionary["id"] as? String
     }
     
     class func businesses(array: [NSDictionary]) -> [Business] {
@@ -106,5 +109,9 @@ class Business: NSObject {
     
     class func searchWithTerm(term: String, sort: YelpSortMode?, categories: [String]?, deals: Bool?, offset: Int?, completion: @escaping ([Business]?, Error?) -> Void) -> Void {
         _ = YelpClient.sharedInstance.searchWithTerm(term, sort: sort, categories: categories, deals: deals, offset: offset, completion: completion)
+    }
+    
+    class func getBusiness(withID id: String, completion: @escaping (Business?, Error?) -> Void) {
+        _ = YelpClient.sharedInstance.getBusiness(withID: id, completion: completion)
     }
 }

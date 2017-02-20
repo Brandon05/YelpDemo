@@ -22,6 +22,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nh4-pD-shD">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </mapView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="156" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="AEE-pK-kWa">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -30,7 +33,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="156"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="52X-J5-c0Q" id="wWa-z6-DoN">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="156"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="155"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sD8-Tq-FCE">
@@ -121,9 +124,6 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nh4-pD-shD">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                            </mapView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -137,15 +137,40 @@
                             <constraint firstItem="AEE-pK-kWa" firstAttribute="leading" secondItem="XhR-oz-92f" secondAttribute="leading" id="yyC-Aa-aih"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Yelp" id="WUm-3X-t3E"/>
+                    <navigationItem key="navigationItem" title="Yelp" id="WUm-3X-t3E">
+                        <barButtonItem key="rightBarButtonItem" title="Map" id="z6o-Fv-nRd">
+                            <connections>
+                                <action selector="onMap:" destination="2xI-yr-O5N" id="Df8-1k-zUQ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="Nh4-pD-shD" id="2GU-rd-Dmi"/>
                         <outlet property="tableView" destination="AEE-pK-kWa" id="tRn-85-PpG"/>
+                        <segue destination="IY5-Ls-lFm" kind="show" identifier="DetailSegue" id="FWC-Cb-mZl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fgb-4b-F1b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2727.1999999999998" y="357.57121439280365"/>
+        </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="Pc6-dg-2o2">
+            <objects>
+                <viewController id="IY5-Ls-lFm" customClass="DetailViewController" customModule="Yelp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="pYy-hO-RxH"/>
+                        <viewControllerLayoutGuide type="bottom" id="aV5-Dt-85p"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="p9j-NQ-p8v">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="i4H-mO-gFQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3543" y="358"/>
         </scene>
         <!--Yelp Navigation Controller-->
         <scene sceneID="d8H-Zt-k1y">

@@ -84,4 +84,18 @@ extension BusinessesViewController: MKMapViewDelegate, CLLocationManagerDelegate
         
         return annotationView
     }
+    
+    func presentMap() {
+        UIView.transition(with: self.view, duration: 0.3, options: UIViewAnimationOptions.transitionFlipFromBottom, animations: {
+            self.view.bringSubview(toFront: self.mapView)
+        }) { (finished: Bool) in
+        }
+    }
+    
+    func removeMap() {
+        UIView.transition(with: self.view, duration: 0.3, options: UIViewAnimationOptions.transitionFlipFromTop, animations: {
+            self.view.bringSubview(toFront: self.tableView)
+        }) { (finished: Bool) in
+        }
+    }
 }

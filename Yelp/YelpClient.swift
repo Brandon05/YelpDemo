@@ -87,8 +87,8 @@ class YelpClient: BDBOAuth1RequestOperationManager, LocationServiceDelegate {
                             if let response = response as? [String: Any]{
                                 let dictionaries = response["businesses"] as? [NSDictionary]
                                 if dictionaries != nil {
-                                    print(dictionaries)
-                                    print(dictionaries?[0]["actionlinks"])
+                                    //print(dictionaries)
+                                    //print(dictionaries?[0]["actionlinks"])
                                     completion(Business.businesses(array: dictionaries!), nil)
                                 }
                             }
@@ -96,6 +96,33 @@ class YelpClient: BDBOAuth1RequestOperationManager, LocationServiceDelegate {
                         failure: { (operation: AFHTTPRequestOperation?, error: Error) -> Void in
                             completion(nil, error)
                         })!
+    }
+    
+    func getBusiness(withID id: String, completion: @escaping (Business?, Error?) -> Void) -> AFHTTPRequestOperation {
+        var parameters = id //[String: AnyObject] = [".us": id as AnyObject]
+        
+        return self.get("business/\(id)", parameters: nil,
+                        success: { (operation: AFHTTPRequestOperation, response: Any) -> Void in
+                            print(response)
+                            if let response = response as? NSDictionary {
+                                var business: Business!
+                                
+                                business = Business(dictionary: response)!
+                                print(business.name!)
+                                completion(business, nil)
+                            }
+//                            if let response = response as? [String: Any]{
+//                                let dictionaries = response["businesses"] as? [NSDictionary]
+//                                if dictionaries != nil {
+//                                    //print(dictionaries)
+//                                    //print(dictionaries?[0]["actionlinks"])
+//                                    completion(Business.businesses(array: dictionaries!), nil)
+//                                }
+//                            }
+        },
+                        failure: { (operation: AFHTTPRequestOperation?, error: Error) -> Void in
+                            completion(nil, error)
+        })!
     }
     
     func tracingLocation(_ currentLocation: CLLocation) {
