@@ -8,8 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		020BB05B1E55256800BD6629 /* ScrollViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020BB05A1E55256800BD6629 /* ScrollViewExtension.swift */; };
+		020BB0911E565FE800BD6629 /* LocationServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020BB0901E565FE700BD6629 /* LocationServiceProtocol.swift */; };
+		020BB0931E5A938A00BD6629 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020BB0921E5A938A00BD6629 /* DetailViewController.swift */; };
 		023F29771E5417C0008B1521 /* YelpNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F29761E5417C0008B1521 /* YelpNavigationController.swift */; };
 		023F297A1E54183E008B1521 /* SearchExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F29791E54183E008B1521 /* SearchExtension.swift */; };
+		02996D901E56204B00E8EBE6 /* BusinessesMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02996D8F1E56204B00E8EBE6 /* BusinessesMapView.swift */; };
 		02AA5FB01E3C45DD00A5E771 /* BusinessCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AA5FAF1E3C45DD00A5E771 /* BusinessCell.swift */; };
 		222D8A5B19CCF9F900D2DB53 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222D8A5A19CCF9F900D2DB53 /* AppDelegate.swift */; };
 		222D8A6019CCF9F900D2DB53 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 222D8A5E19CCF9F900D2DB53 /* Main.storyboard */; };
@@ -35,8 +38,11 @@
 
 /* Begin PBXFileReference section */
 		020BB05A1E55256800BD6629 /* ScrollViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollViewExtension.swift; sourceTree = "<group>"; };
+		020BB0901E565FE700BD6629 /* LocationServiceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationServiceProtocol.swift; sourceTree = "<group>"; };
+		020BB0921E5A938A00BD6629 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		023F29761E5417C0008B1521 /* YelpNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YelpNavigationController.swift; sourceTree = "<group>"; };
 		023F29791E54183E008B1521 /* SearchExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchExtension.swift; sourceTree = "<group>"; };
+		02996D8F1E56204B00E8EBE6 /* BusinessesMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessesMapView.swift; sourceTree = "<group>"; };
 		02AA5FAF1E3C45DD00A5E771 /* BusinessCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessCell.swift; sourceTree = "<group>"; };
 		0A1000F3975EB43318C1D4FA /* Pods_YelpTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YelpTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		222D8A5519CCF9F900D2DB53 /* Yelp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yelp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,9 +88,18 @@
 		020BB0591E55254500BD6629 /* BusinessesViewControllerExtensions */ = {
 			isa = PBXGroup;
 			children = (
+				02996D8E1E56200700E8EBE6 /* MapViewExtensions */,
 				020BB05A1E55256800BD6629 /* ScrollViewExtension.swift */,
 			);
 			name = BusinessesViewControllerExtensions;
+			sourceTree = "<group>";
+		};
+		020BB08F1E565FC100BD6629 /* LocationServices */ = {
+			isa = PBXGroup;
+			children = (
+				020BB0901E565FE700BD6629 /* LocationServiceProtocol.swift */,
+			);
+			name = LocationServices;
 			sourceTree = "<group>";
 		};
 		023F29781E54181D008B1521 /* SearchControllerExtension */ = {
@@ -93,6 +108,14 @@
 				023F29791E54183E008B1521 /* SearchExtension.swift */,
 			);
 			name = SearchControllerExtension;
+			sourceTree = "<group>";
+		};
+		02996D8E1E56200700E8EBE6 /* MapViewExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				02996D8F1E56204B00E8EBE6 /* BusinessesMapView.swift */,
+			);
+			name = MapViewExtensions;
 			sourceTree = "<group>";
 		};
 		02AA5FAE1E3C45BE00A5E771 /* Views */ = {
@@ -126,6 +149,7 @@
 		222D8A5719CCF9F900D2DB53 /* Yelp */ = {
 			isa = PBXGroup;
 			children = (
+				020BB08F1E565FC100BD6629 /* LocationServices */,
 				020BB0591E55254500BD6629 /* BusinessesViewControllerExtensions */,
 				023F29781E54181D008B1521 /* SearchControllerExtension */,
 				02AA5FAE1E3C45BE00A5E771 /* Views */,
@@ -187,6 +211,7 @@
 			children = (
 				023F29761E5417C0008B1521 /* YelpNavigationController.swift */,
 				22AAAA9B1AEA1EC300A544AF /* BusinessesViewController.swift */,
+				020BB0921E5A938A00BD6629 /* DetailViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -269,6 +294,7 @@
 				TargetAttributes = {
 					222D8A5419CCF9F900D2DB53 = {
 						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = ELJV42N84Z;
 						LastSwiftMigration = 0800;
 					};
 					222D8A6919CCF9F900D2DB53 = {
@@ -415,9 +441,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				020BB0931E5A938A00BD6629 /* DetailViewController.swift in Sources */,
 				02AA5FB01E3C45DD00A5E771 /* BusinessCell.swift in Sources */,
 				023F29771E5417C0008B1521 /* YelpNavigationController.swift in Sources */,
 				023F297A1E54183E008B1521 /* SearchExtension.swift in Sources */,
+				02996D901E56204B00E8EBE6 /* BusinessesMapView.swift in Sources */,
+				020BB0911E565FE800BD6629 /* LocationServiceProtocol.swift in Sources */,
 				020BB05B1E55256800BD6629 /* ScrollViewExtension.swift in Sources */,
 				22AAAA9C1AEA1EC300A544AF /* BusinessesViewController.swift in Sources */,
 				22AAAA991AEA0A9700A544AF /* Business.swift in Sources */,
@@ -557,9 +586,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = ELJV42N84Z;
 				INFOPLIST_FILE = Yelp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.codepath.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.brandon.Yelp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -573,9 +603,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = ELJV42N84Z;
 				INFOPLIST_FILE = Yelp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.codepath.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.brandon.Yelp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 3.0;

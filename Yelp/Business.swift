@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class Business: NSObject {
     let name: String?
@@ -16,6 +17,8 @@ class Business: NSObject {
     let distance: String?
     let ratingImageURL: URL?
     let reviewCount: NSNumber?
+    let coordinate: CLLocationCoordinate2D?
+    let id: String?
     
     init?(dictionary: NSDictionary) {
         name = dictionary["name"] as? String
@@ -29,6 +32,7 @@ class Business: NSObject {
         
         let location = dictionary["location"] as? NSDictionary
         var address = ""
+        var coordinate = CLLocationCoordinate2D()
         if location != nil {
             let addressArray = location!["address"] as? NSArray
             if addressArray != nil && addressArray!.count > 0 {
@@ -42,8 +46,19 @@ class Business: NSObject {
                 }
                 address += neighborhoods![0] as! String
             }
+            
+            /* Return Value for location["coordinate"]
+             key: coordinate, value: {
+             latitude = "37.789806";
+             longitude = "-122.410709"
+             */
+            let coordinates = location!["coordinate"] as? NSDictionary
+            if coordinates != nil {
+                coordinate = CLLocationCoordinate2D(latitude: coordinates!["latitude"] as! CLLocationDegrees, longitude: coordinates!["longitude"] as! CLLocationDegrees)
+            }
         }
         self.address = address
+        self.coordinate = coordinate
         
         let categoriesArray = dictionary["categories"] as? [[String]]
         if categoriesArray != nil {
@@ -73,11 +88,15 @@ class Business: NSObject {
         }
         
         reviewCount = dictionary["review_count"] as? NSNumber
+        
+        id = dictionary["id"] as? String
     }
     
     class func businesses(array: [NSDictionary]) -> [Business] {
         var businesses = [Business]()
         for dictionary in array {
+            //print(dictionary)
+            //print(dictionary["actionlinks"])
             let business = Business(dictionary: dictionary)
             businesses.append(business!)
         }
@@ -90,5 +109,9 @@ class Business: NSObject {
     
     class func searchWithTerm(term: String, sort: YelpSortMode?, categories: [String]?, deals: Bool?, offset: Int?, completion: @escaping ([Business]?, Error?) -> Void) -> Void {
         _ = YelpClient.sharedInstance.searchWithTerm(term, sort: sort, categories: categories, deals: deals, offset: offset, completion: completion)
+    }
+    
+    class func getBusiness(withID id: String, completion: @escaping (Business?, Error?) -> Void) {
+        _ = YelpClient.sharedInstance.getBusiness(withID: id, completion: completion)
     }
 }

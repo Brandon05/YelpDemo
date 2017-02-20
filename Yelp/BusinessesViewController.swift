@@ -7,8 +7,15 @@
 //
 
 import UIKit
+import MapKit
 
-class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, LocationServiceDelegate {
+    
+    @IBOutlet weak var mapView: MKMapView!
+    var isMapViewPresent = false
+    let locationManager = CLLocationManager()
+    //var pointAnnotation:CustomPointAnnotation!
+    var pinAnnotationView:MKPinAnnotationView!
     
     let refreshControl = UIRefreshControl()
     
@@ -35,9 +42,21 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.translatesAutoresizingMaskIntoConstraints = false
         self.automaticallyAdjustsScrollViewInsets = false // prevent gap between tableview and nav bar
         
-        networkRequest(withTerm: currentTerm, andOffset: 0)
-        
         initiateSearchController()
+        
+        LocationService.sharedInstance.delegate = self
+        mapView.delegate = self
+        mapView.showsUserLocation = true
+        locationManager.delegate = self
+        //locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        if #available(iOS 9.0, *) {
+            locationManager.requestLocation()
+            //print("\(locationManager.location?.coordinate)")
+            LocationService.sharedInstance.getCurrentLocation()
+        } else {
+            // Fallback on earlier versions
+        }
+        //print("\(LocationService.sharedInstance.)")
         
         /* Example of Yelp search with more search options specified
          Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
@@ -50,6 +69,11 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
          }
          */
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        networkRequest(withTerm: currentTerm, andOffset: 0)
     }
     
     override func didReceiveMemoryWarning() {
@@ -77,6 +101,11 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath) as! BusinessCell
+        self.performSegue(withIdentifier: "DetailSegue", sender: cell.business)
+    }
+    
     func networkRequest(withTerm term: String, andOffset offset: Int) {
         Business.searchWithTerm(term: term, offset: offset, completion: { (businesses: [Business]?, error: Error?) -> Void in
             
@@ -84,21 +113,62 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
 //            for business in filteredBusinesses! {
 //                self.businesses.append(business)
 //            }
+            print(businesses)
+            print(filteredBusinesses)
             self.businesses += filteredBusinesses!
             //self.businesses += businesses.flatMap {return $0}
             self.isMoreDataLoading = false
             self.tableView.reloadData()
             self.refreshControl.endRefreshing()
+            self.mapView.reloadInputViews()
+            //self.locationManager.startUpdatingLocation()
         })
     }
-    /*
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
+    }
+    
+    func tracingLocationDidFailWithError(_ error: NSError) {
+        
+    }
+    
+    func tracingLocation(_ currentLocation: CLLocation) {
+        print("getting current location")
+    }
+    
+    @IBAction func onMap(_ sender: Any) {
+        if #available(iOS 9.0, *) {
+            locationManager.requestLocation()
+            //print("\(locationManager.location?.coordinate)")
+            LocationService.sharedInstance.getCurrentLocation()
+        } else {
+            // Fallback on earlier versions
+        }
+
+        switch isMapViewPresent {
+        case true:
+            removeMap()
+            isMapViewPresent = false
+        case false:
+            presentMap()
+            isMapViewPresent = true
+        }
+    }
+    
+    
      // MARK: - Navigation
      
      // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "DetailSegue" {
+            //let cell = sender as! BusinessCell
+            let detailVC = segue.destination as! DetailViewController
+            let business = sender as? Business
+            detailVC.business = business
+            detailVC.businessID = business?.id //)! + "?actionlinks=True"
+        }
      }
-     */
+ 
     
 }
