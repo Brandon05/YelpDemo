@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		020BB05B1E55256800BD6629 /* ScrollViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020BB05A1E55256800BD6629 /* ScrollViewExtension.swift */; };
+		020BB0911E565FE800BD6629 /* LocationServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020BB0901E565FE700BD6629 /* LocationServiceProtocol.swift */; };
 		023F29771E5417C0008B1521 /* YelpNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F29761E5417C0008B1521 /* YelpNavigationController.swift */; };
 		023F297A1E54183E008B1521 /* SearchExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F29791E54183E008B1521 /* SearchExtension.swift */; };
 		02996D901E56204B00E8EBE6 /* BusinessesMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02996D8F1E56204B00E8EBE6 /* BusinessesMapView.swift */; };
@@ -36,6 +37,7 @@
 
 /* Begin PBXFileReference section */
 		020BB05A1E55256800BD6629 /* ScrollViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollViewExtension.swift; sourceTree = "<group>"; };
+		020BB0901E565FE700BD6629 /* LocationServiceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationServiceProtocol.swift; sourceTree = "<group>"; };
 		023F29761E5417C0008B1521 /* YelpNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YelpNavigationController.swift; sourceTree = "<group>"; };
 		023F29791E54183E008B1521 /* SearchExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchExtension.swift; sourceTree = "<group>"; };
 		02996D8F1E56204B00E8EBE6 /* BusinessesMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessesMapView.swift; sourceTree = "<group>"; };
@@ -90,6 +92,14 @@
 			name = BusinessesViewControllerExtensions;
 			sourceTree = "<group>";
 		};
+		020BB08F1E565FC100BD6629 /* LocationServices */ = {
+			isa = PBXGroup;
+			children = (
+				020BB0901E565FE700BD6629 /* LocationServiceProtocol.swift */,
+			);
+			name = LocationServices;
+			sourceTree = "<group>";
+		};
 		023F29781E54181D008B1521 /* SearchControllerExtension */ = {
 			isa = PBXGroup;
 			children = (
@@ -137,6 +147,7 @@
 		222D8A5719CCF9F900D2DB53 /* Yelp */ = {
 			isa = PBXGroup;
 			children = (
+				020BB08F1E565FC100BD6629 /* LocationServices */,
 				020BB0591E55254500BD6629 /* BusinessesViewControllerExtensions */,
 				023F29781E54181D008B1521 /* SearchControllerExtension */,
 				02AA5FAE1E3C45BE00A5E771 /* Views */,
@@ -431,6 +442,7 @@
 				023F29771E5417C0008B1521 /* YelpNavigationController.swift in Sources */,
 				023F297A1E54183E008B1521 /* SearchExtension.swift in Sources */,
 				02996D901E56204B00E8EBE6 /* BusinessesMapView.swift in Sources */,
+				020BB0911E565FE800BD6629 /* LocationServiceProtocol.swift in Sources */,
 				020BB05B1E55256800BD6629 /* ScrollViewExtension.swift in Sources */,
 				22AAAA9C1AEA1EC300A544AF /* BusinessesViewController.swift in Sources */,
 				22AAAA991AEA0A9700A544AF /* Business.swift in Sources */,

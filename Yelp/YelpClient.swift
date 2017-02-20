@@ -10,6 +10,7 @@ import UIKit
 
 import AFNetworking
 import BDBOAuth1Manager
+import CoreLocation
 
 // You can register for Yelp API keys here: http://www.yelp.com/developers/manage_api_keys
 let yelpConsumerKey = "vxKwwcR_NMQ7WaEiQBK_CA"
@@ -21,7 +22,7 @@ enum YelpSortMode: Int {
     case bestMatched = 0, distance, highestRated
 }
 
-class YelpClient: BDBOAuth1RequestOperationManager {
+class YelpClient: BDBOAuth1RequestOperationManager, LocationServiceDelegate {
     var accessToken: String!
     var accessSecret: String!
     
@@ -47,11 +48,21 @@ class YelpClient: BDBOAuth1RequestOperationManager {
         return searchWithTerm(term, sort: nil, categories: nil, deals: nil, offset: offset, completion: completion)
     }
     
+    
     func searchWithTerm(_ term: String, sort: YelpSortMode?, categories: [String]?, deals: Bool?, offset: Int?, completion: @escaping ([Business]?, Error?) -> Void) -> AFHTTPRequestOperation {
         // For additional parameters, see http://www.yelp.com/developers/documentation/v2/search_api
         
+        var latitudeString: String?
+        var longitudeString: String?
+        if let latitude = LocationService.sharedInstance.currentLocation?.coordinate.latitude {
+            latitudeString = String(describing: latitude)
+        }
+        if let longitude = LocationService.sharedInstance.currentLocation?.coordinate.longitude {
+            longitudeString = String(describing: longitude)
+        }
+        print("\(latitudeString!) and \(longitudeString!)")
         // Default the location to San Francisco
-        var parameters: [String : AnyObject] = ["term": term as AnyObject, "ll": "37.785771,-122.406165" as AnyObject]
+        var parameters: [String : AnyObject] = ["term": term as AnyObject, "ll": "\(latitudeString!),\(longitudeString!)" as AnyObject, "actionlinks": true as AnyObject]
         
         if sort != nil {
             parameters["sort"] = sort!.rawValue as AnyObject?
@@ -76,6 +87,8 @@ class YelpClient: BDBOAuth1RequestOperationManager {
                             if let response = response as? [String: Any]{
                                 let dictionaries = response["businesses"] as? [NSDictionary]
                                 if dictionaries != nil {
+                                    print(dictionaries)
+                                    print(dictionaries?[0]["actionlinks"])
                                     completion(Business.businesses(array: dictionaries!), nil)
                                 }
                             }
@@ -84,4 +97,14 @@ class YelpClient: BDBOAuth1RequestOperationManager {
                             completion(nil, error)
                         })!
     }
+    
+    func tracingLocation(_ currentLocation: CLLocation) {
+        
+    }
+    
+    func tracingLocationDidFailWithError(_ error: NSError) {
+        print("tracing Location Error : \(error.description)")
+    }
 }
+
+

@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, LocationServiceDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
     let locationManager = CLLocationManager()
@@ -41,15 +41,21 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.translatesAutoresizingMaskIntoConstraints = false
         self.automaticallyAdjustsScrollViewInsets = false // prevent gap between tableview and nav bar
         
-        networkRequest(withTerm: currentTerm, andOffset: 0)
-        
         initiateSearchController()
         
+        LocationService.sharedInstance.delegate = self
         mapView.delegate = self
+        mapView.showsUserLocation = true
         locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestAlwaysAuthorization()
-        locationManager.startUpdatingLocation()
+        //locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        if #available(iOS 9.0, *) {
+            locationManager.requestLocation()
+            //print("\(locationManager.location?.coordinate)")
+            LocationService.sharedInstance.getCurrentLocation()
+        } else {
+            // Fallback on earlier versions
+        }
+        //print("\(LocationService.sharedInstance.)")
         
         /* Example of Yelp search with more search options specified
          Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
@@ -62,6 +68,11 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
          }
          */
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        networkRequest(withTerm: currentTerm, andOffset: 0)
     }
     
     override func didReceiveMemoryWarning() {
@@ -102,8 +113,20 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
             self.tableView.reloadData()
             self.refreshControl.endRefreshing()
             self.mapView.reloadInputViews()
-            
+            //self.locationManager.startUpdatingLocation()
         })
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
+    }
+    
+    func tracingLocationDidFailWithError(_ error: NSError) {
+        
+    }
+    
+    func tracingLocation(_ currentLocation: CLLocation) {
+        print("getting current location")
     }
     /*
      // MARK: - Navigation

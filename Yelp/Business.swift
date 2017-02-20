@@ -51,9 +51,9 @@ class Business: NSObject {
              latitude = "37.789806";
              longitude = "-122.410709"
              */
-            let coordinates = location!["coordinate"] as? NSArray
+            let coordinates = location!["coordinate"] as? NSDictionary
             if coordinates != nil {
-                coordinate = CLLocationCoordinate2D(latitude: coordinates![0] as! CLLocationDegrees, longitude: coordinates![1] as! CLLocationDegrees)
+                coordinate = CLLocationCoordinate2D(latitude: coordinates!["latitude"] as! CLLocationDegrees, longitude: coordinates!["longitude"] as! CLLocationDegrees)
             }
         }
         self.address = address
@@ -92,6 +92,8 @@ class Business: NSObject {
     class func businesses(array: [NSDictionary]) -> [Business] {
         var businesses = [Business]()
         for dictionary in array {
+            //print(dictionary)
+            //print(dictionary["actionlinks"])
             let business = Business(dictionary: dictionary)
             businesses.append(business!)
         }

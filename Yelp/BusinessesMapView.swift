@@ -9,40 +9,78 @@
 import Foundation
 import UIKit
 import MapKit
+import CoreLocation
+import AFNetworking
+
+class CustomPointAnnotation: MKPointAnnotation {
+    var imageName: URL!
+}
 
 extension BusinessesViewController: MKMapViewDelegate, CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let location = CLLocationCoordinate2D(latitude: 37.785771, longitude: -122.406165)
-        let center = location
-        let region = MKCoordinateRegionMake(center, MKCoordinateSpan(latitudeDelta: 0.025, longitudeDelta: 0.025))
+//        let userLocation = locations[0]
+//        print("USER: \(userLocation.coordinate.longitude), \(userLocation.coordinate.latitude)")
+        let center = LocationService.sharedInstance.currentLocation?.coordinate //location
+        let region = MKCoordinateRegionMake(center!, MKCoordinateSpan(latitudeDelta: 0.050, longitudeDelta: 0.050))
         mapView.setRegion(region, animated: true)
         
-        let coordinates = businesses.flatMap {return $0.coordinate}
-        
-        for coordinate in coordinates {
-            let annotaion = MKPointAnnotation()
-            annotaion.coordinate = coordinate
-            mapView.addAnnotation(annotaion)
+        let annotations = businesses.flatMap { business -> MKPointAnnotation in
+            let annotation = CustomPointAnnotation()
+            annotation.coordinate = business.coordinate!
+            annotation.title = business.name
+            annotation.imageName = business.imageURL
+            return annotation
         }
         
-        //mapView.reloadInputViews()
+        mapView.addAnnotations(annotations)
+        //locationManager.stopUpdatingLocation()
+        print("stopped")
     }
     
     //MARK: - Custom Annotation
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
-        let reuseIdentifier = "pin"
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+//        let reuseIdentifier = "pin"
+//        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
+//        
+//        if annotationView == nil {
+//            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
+//            annotationView?.canShowCallout = true
+//        } else {
+//            annotationView?.annotation = annotation
+//        }
+//        
+//        //let customPointAnnotation = annotation as! CustomPointAnnotation
+//        //annotationView?.image = UIImage(named: customPointAnnotation.pinCustomImageName)
+//        
+//        return annotationView
         
-        if annotationView == nil {
-            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
-            annotationView?.canShowCallout = true
-        } else {
-            annotationView?.annotation = annotation
+        // Don't want to show a custom image if the annotation is the user's location.
+        guard !(annotation is MKUserLocation) else {
+            return nil
         }
         
-        //let customPointAnnotation = annotation as! CustomPointAnnotation
-        //annotationView?.image = UIImage(named: customPointAnnotation.pinCustomImageName)
+        // Better to make this class property
+        let annotationIdentifier = "AnnotationIdentifier"
+        
+        var annotationView: MKAnnotationView?
+        if let dequeuedAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotationIdentifier) {
+            annotationView = dequeuedAnnotationView
+            annotationView?.annotation = annotation
+        }
+        else {
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifier)
+            annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+        }
+        
+        let cpa = annotation as! CustomPointAnnotation
+        if let annotationView = annotationView {
+            // Configure your annotation view here
+            annotationView.canShowCallout = true
+            let annotationViewImage = UIImageView()
+            annotationViewImage.setImageWith(cpa.imageName)
+            annotationView.image = #imageLiteral(resourceName: "annotationImage")
+        }
         
         return annotationView
     }
