@@ -94,7 +94,7 @@ extension BusinessesViewController: MKMapViewDelegate, CLLocationManagerDelegate
             // Configure your annotation view here
             annotationView.canShowCallout = true
             let annotationViewImage = UIImageView()
-            annotationViewImage.setImageWith(cpa.imageName)
+            //annotationViewImage.setImageWith(cpa.imageName)
             annotationView.image = #imageLiteral(resourceName: "annotationImage")
         }
         

@@ -103,6 +103,16 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! BusinessCell
+        
+//        let detailViewController = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
+//        detailViewController.business = cell.business
+//        detailViewController.businessID = cell.business.id
+//        self.addChildViewController(detailViewController)
+//        detailViewController.view.frame = self.tableView.frame
+//        self.tableView.addSubview(detailViewController.view)
+//        detailViewController.didMove(toParentViewController: self)
+        
+        
         self.performSegue(withIdentifier: "DetailSegue", sender: cell.business)
     }
     
