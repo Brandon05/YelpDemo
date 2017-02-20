@@ -21,7 +21,7 @@ extension BusinessesViewController: UIScrollViewDelegate {
             if(scrollView.contentOffset.y > scrollOffsetThreshold && tableView.isDragging) {
                 isMoreDataLoading = true
                 
-                networkRequest(withTerm: currentTerm, andOffset: 0)
+                networkRequest(withTerm: currentTerm, andOffset: businesses.count)
             }
         }
     }

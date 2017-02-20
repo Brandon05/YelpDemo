@@ -14,6 +14,7 @@ import AFNetworking
 
 class CustomPointAnnotation: MKPointAnnotation {
     var imageName: URL!
+    var business: Business!
 }
 
 extension BusinessesViewController: MKMapViewDelegate, CLLocationManagerDelegate {
@@ -30,6 +31,7 @@ extension BusinessesViewController: MKMapViewDelegate, CLLocationManagerDelegate
             annotation.coordinate = business.coordinate!
             annotation.title = business.name
             annotation.imageName = business.imageURL
+            annotation.business = business
             return annotation
         }
         
@@ -83,6 +85,11 @@ extension BusinessesViewController: MKMapViewDelegate, CLLocationManagerDelegate
         }
         
         return annotationView
+    }
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        let annotation = view.annotation as! CustomPointAnnotation
+        performSegue(withIdentifier: "DetailSegue", sender: annotation.business)
     }
     
     func presentMap() {

@@ -138,6 +138,14 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     @IBAction func onMap(_ sender: Any) {
+        if #available(iOS 9.0, *) {
+            locationManager.requestLocation()
+            //print("\(locationManager.location?.coordinate)")
+            LocationService.sharedInstance.getCurrentLocation()
+        } else {
+            // Fallback on earlier versions
+        }
+
         switch isMapViewPresent {
         case true:
             removeMap()
