@@ -1,12 +1,10 @@
-# Project 3 - iYelp
+# iYelp
 
 **iYelp** is a Yelp search app using the [Yelp API](http://www.yelp.com/developers/documentation/v2/search_api).
 
-Time spent: **10** hours spent in total
-
 ## User Stories
 
-The following **required** functionality is completed:
+The following **core** functionality is completed:
 
 - [x] Table rows for search results should be dynamic height according to the content height.
 - [x] Custom cells should have the proper Auto Layout constraints.
@@ -18,32 +16,17 @@ The following **optional** features are implemented:
    - [x] Infinite scroll for restaurant results.
    - [x] Implement map view of restaurant results.
 - [x] Implement the restaurant detail page.
-
-The following **additional** features are implemented:
-
 - [x] Businesses open up in Maps app for directions
 - [x] Pull to Refresh
 - [x] App uses actual user location (when on phone)
 
-Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
-
-1. 
-2. 
-
 ## Video Walkthrough 
 
-Here's a walkthrough of implemented user stories:
+Here's a walkthrough:
 
-<img src='http://imgur.com/DXWzJhh.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
-
-## Gif Link
-The gif is to long fo rthe read me, so I added a link: http://imgur.com/DXWzJhh.gif
+<img src='http://imgur.com/DXWzJhh.gif' title='Video Walkthrough' width='' alt='http://imgur.com/DXWzJhh.gif' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
-
-## Notes
-
-Describe any challenges encountered while building the app.
 
 ## License
 
