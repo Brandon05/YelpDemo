@@ -24,7 +24,7 @@ The following **optional** features are implemented:
 
 Here's a walkthrough:
 
-<img src='http://imgur.com/DXWzJhh.gif' title='Video Walkthrough' width='' alt='http://imgur.com/DXWzJhh' />
+<img src='/DXWzJhh - Imgur.gif?raw=true' title='Video Walkthrough' width='' alt='http://imgur.com/DXWzJhh' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
